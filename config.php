@@ -8,6 +8,6 @@ $dbName = "ochef";
 
 $conn = mysqli_connect($host,$user,$password,$dbName);
 
-if($conn){
-    echo "Connected success!";
-}
+// if($conn){
+//     echo "Connected success!";
+// }

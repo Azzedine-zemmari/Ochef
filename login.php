@@ -19,49 +19,13 @@
                 <h2 class="mt-6 text-3xl font-extrabold text-gray-900">Sign up</h2>
                 <p class="mt-2 text-sm text-gray-600">
                     Already have an account? 
-                    <a href="./login.php" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in here</a>
+                    <a href="./register.php" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up here</a>
                 </p>
             </div>
 
             <!-- Form -->
-            <form action="./registerPros.php" method="POST" class="mt-8 space-y-6">
+            <form action="./loginPros.php" method="POST" class="mt-8 space-y-6">
                 <div class="space-y-4">
-                    <!-- Name -->
-                    <div>
-                        <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
-                            Name
-                        </label>
-                        <input type="text" name="name" required 
-                            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
-
-                    <!-- First Name -->
-                    <div>
-                        <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
-                            First Name
-                        </label>
-                        <input type="text" name="firstName" required 
-                            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
-
-                    <!-- Address -->
-                    <div>
-                        <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
-                            Address
-                        </label>
-                        <input type="text" name="address" required 
-                            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
-
-                    <!-- Phone -->
-                    <div>
-                        <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
-                            Phone
-                        </label>
-                        <input type="tel" name="tel" required 
-                            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
-
                     <!-- Email -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
