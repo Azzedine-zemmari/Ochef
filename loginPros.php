@@ -19,7 +19,7 @@ if(mysqli_stmt_execute($stmt)){
         if($user['RoleId'] == 1){
             if ($password === $user['password']) {
                 echo "Welcome admin , " . $user['nom'];
-                header("Location: Home.php");
+                header("Location: Dashboard.php");
             } else {
                 // Incorrect password
                 echo "Invalid credentials. Please try again.";
