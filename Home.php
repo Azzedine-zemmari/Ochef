@@ -29,7 +29,7 @@
                 <img src="./image/logo.png" class="w-auto h-10" alt="">
                 <div class="hidden md:flex items-center space-x-10 mx-auto">
                     <a href="#" class="text-white">Home</a>
-                    <a href="#" class="text-white">Menu</a>
+                    <a href="./Menu.php" class="text-white">Menu</a>
                     <a href="#" class="text-white">Reservation</a>
                     <a href="#" class="text-white">Contact</a>
                     <a class="text-white border border-white text-sm ho py-2 px-6 rounded-full ">Rerserver</a>
@@ -108,7 +108,6 @@
     </div>    
     <hr class="text-white">
     <p class="text-center text-white font-semibold py-2">© 2024 Luxury chef. All rights reserved</p>
-   
     </footer>
 
 </body>
