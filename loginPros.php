@@ -16,7 +16,7 @@ if(mysqli_stmt_execute($stmt)){
     if($result){
         $user = mysqli_fetch_assoc($result);
         // for the admin i enter a simple password
-        if($user['role'] == 'admin'){
+        if($user['RoleId'] == 1){
             if ($password === $user['password']) {
                 echo "Welcome admin , " . $user['nom'];
             } else {
