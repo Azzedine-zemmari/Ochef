@@ -62,9 +62,11 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
         </div>
         <?php 
             require "./config.php";
-            $sql = "select client.nom as ClientNom , Reservation.id , menu.nom as MenuNom , Reservation.dateReservation , Reservation.heur , Reservation.nbrPerson , Reservation.status from Reservation 
+            $sql = "select client.nom as ClientNom , Reservation.id , menu.nom as MenuNom , Reservation.dateReservation , Reservation.heur , Reservation.nbrPerson , Reservation.status , Reservation.clientId , Reservation.MenuId from Reservation 
             join client on client.id = Reservation.clientId 
-            join menu on Reservation.MenuId = menu.id;";
+            join menu on Reservation.MenuId = menu.id
+            ORDER BY Reservation.id ASC;
+            ;";
             $result = mysqli_query($conn,$sql);
         ?>
         <div class="overflow-x-auto">
@@ -93,7 +95,7 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
                             <td class="px-2 md:px-6 py-3"><?php echo $reservations['status'] ?></td>
                             <td class="px-2 md:px-6 py-3 flex space-x-2">
                                 <a class="" href="./aproveReservation.php?id=<?php echo $reservations['id'] ?>"><img src="./image/approuve.png" class="w-10" alt=""></a>
-                                <a class="" href="./denyReservation.php?id=<?php echo $reservations['id'] ?>"><img src="./image/interdit.png" class="w-10" alt=""></a>
+                                <a class="" href="./denyReservation.php?id=<?php echo $reservations['id']?>"><img src="./image/interdit.png" class="w-10" alt=""></a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
