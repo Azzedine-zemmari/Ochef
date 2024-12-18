@@ -104,12 +104,57 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
         <p class="text-gray-600 mb-6">
             Thank you for choosing us. Please provide your details below to complete your reservation.
         </p>
-                <!-- ... -->
+        <form action="" method="POST">
+            <div class="flex gap-5">
+                <div class="flex flex-col">    
+                <label for="nbr" class="text-[#C0A677] font-primary font-semibold">N Person:</label>
+                <input type="number" id="nbr" name="nbrPerson" class="shadow-md">
+                </div>
+                <div class="flex flex-col">
+                <label for="date" class="text-[#C0A677] font-primary font-semibold">agenda</label>
+                <input type="date" id="date" name="dateReservation"  class="shadow-md">
+                </div>
+                <div class="flex flex-col">
+                <label for="heur" class="text-[#C0A677] font-primary font-semibold">time</label>
+                <input type="time" id="heur" name="heur"  class="shadow-md">
+                </div>
+                <div class="flex flex-col">
+                    <label for="menu" class="text-[#C0A677] font-primary font-semibold">Menu</label>
+                    <select name="menu" id="menu">
+                    <?php
+                        $sql = "select id, nom from menu ;";
+                        $query = mysqli_query($conn,$sql);
+                        while($output = mysqli_fetch_assoc($query)){
+                            echo "
+                            <option value={$output['id']}>{$output['nom']}</option>
+                            ";
+                        }
+                    ?>
+                    </select>
+                </div>
+                <button name="submit" class="justify-end bg-black px-3 py-2 rounded-md text-white">submit</button>
+            </div>
+        </form>
     </div>
 </div>
 
         </div>
     </section>
+    <?php 
+    if(isset($_POST['submit'])){
+        $nbrPerson = $_POST['nbrPerson'];
+        $dateReservation = $_POST['dateReservation'];
+        $time = $_POST['heur'];
+        $menu = $_POST['menu'];
+        $client = $_SESSION['user_id'];
+        $SQL = "insert into Reservation(clientId,MenuId,dateReservation,heur,nbrPerson) values(?,?,?,?,?);";
+        $stmt = mysqli_prepare($conn,$SQL);
+        mysqli_stmt_bind_param($stmt,"iissi",$client,$menu,$dateReservation,$time,$nbrPerson);
+        if(mysqli_stmt_execute($stmt)){
+            echo "reservation added success?";
+        }
+    } 
+    ?>
 
     <!-- Footer -->
     <footer class="bg-[url('./image/BG.png')] bg-cover mx-7 h-full">
