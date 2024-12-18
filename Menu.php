@@ -53,7 +53,7 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
     </section>
 
     <!-- Menu Section -->
-    <section>
+    <section class="relative">
         <div class="flex flex-wrap justify-center mx-7 my-5">
             <div class="border border-black bg-white rounded-lg w-full px-5 py-4">
 
@@ -91,9 +91,23 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
                 </div>
             </div>
                 <!-- pop up -->
-                 <div class=" absolute top-0 bg-[./image/BG.png] bg-cover bg-no-repeat h-44 hidden" id="pop_up">
-                        <h3>hello</h3>
-                 </div>
+<div 
+    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50" 
+    id="pop_up">
+    <div class="bg-white rounded-lg w-1/2 p-6 relative">
+        <button 
+            id="ClosePopUp" 
+            class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
+            &times;
+        </button>
+        <h3 class="text-xl font-primary mb-4">Reservation</h3>
+        <p class="text-gray-600 mb-6">
+            Thank you for choosing us. Please provide your details below to complete your reservation.
+        </p>
+                <!-- ... -->
+    </div>
+</div>
+
         </div>
     </section>
 
@@ -122,8 +136,18 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
     <script>
         const reserver = document.getElementById("Reserver");
         const pop_up = document.getElementById("pop_up");
+        const ClosePopUp = document.getElementById("ClosePopUp");
         reserver.addEventListener("click",()=>{
             pop_up.classList.toggle("hidden")
+        })
+        ClosePopUp.addEventListener("click",()=>{
+            pop_up.classList.toggle("hidden");
+        })
+        // it target the background of the pop up but this will target all the page because of inset-0 in the pop up
+        window.addEventListener("click",(e)=>{
+            if(e.target == pop_up){
+                pop_up.classList.toggle("hidden");
+            }
         })
     </script>
 </body>
