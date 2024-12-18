@@ -92,8 +92,8 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
                             <td class="px-2 md:px-6 py-3"><?php echo $reservations['nbrPerson'] ?></td>
                             <td class="px-2 md:px-6 py-3"><?php echo $reservations['status'] ?></td>
                             <td class="px-2 md:px-6 py-3 flex space-x-2">
-                                <a class="" href=""><img src="./image/approuve.png" class="w-10" alt=""></a>
-                                <a class="" href=""><img src="./image/interdit.png" class="w-10" alt=""></a>
+                                <a class="" href="./aproveReservation.php?id=<?php echo $reservations['id'] ?>"><img src="./image/approuve.png" class="w-10" alt=""></a>
+                                <a class="" href="./denyReservation.php?id=<?php echo $reservations['id'] ?>"><img src="./image/interdit.png" class="w-10" alt=""></a>
                             </td>
                         </tr>
                         <?php endwhile; ?>
