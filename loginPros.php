@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "./config.php";
 
 $email = $_POST['email'];
@@ -19,6 +20,8 @@ if(mysqli_stmt_execute($stmt)){
         if($user['RoleId'] == 1){
             if ($password === $user['password']) {
                 echo "Welcome admin , " . $user['nom'];
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = 'admin';
                 header("Location: Dashboard.php");
             } else {
                 // Incorrect password
@@ -29,6 +32,8 @@ if(mysqli_stmt_execute($stmt)){
         else{
             if(password_verify($password,$user['password'])){
                 echo "Welcome, " . $user['nom'] . " " . $user['prenom'];
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = 'user';
                 header("Location: Home.php");
             } else {
                 echo "Invalid credentials. Please try again.";

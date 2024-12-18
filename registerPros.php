@@ -20,9 +20,16 @@ if(!$stmt){
 
 mysqli_stmt_bind_param($stmt,"ssssss",$name,$prenom,$address,$tel,$email,$hashed_Password);
 
-if(mysqli_stmt_execute($stmt)){
-    echo "new user inserted success";
-}
-else{
-    echo "Error" .mysqli_stmt_error($stmt);
+if (mysqli_stmt_execute($stmt)) {
+    // Get the ID of the newly created user
+    $user_id = mysqli_insert_id($conn);
+    
+    $_SESSION['user_id'] = $user_id;
+    $_SESSION['role'] = 'user';
+    
+    
+    header("Location: Home.php");
+    exit();
+} else {
+    echo "An error occurred during registration. Please try again.";
 }
