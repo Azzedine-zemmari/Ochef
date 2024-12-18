@@ -43,12 +43,24 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
             <a href="#" class="text-[#C0A677] pt-10">Menu</a>
         </div>
         <div class="flex flex-wrap gap-2 m-2">
+            <?php
+                require "./config.php";
+                $sql = "SELECT count(*) as total from Reservation where status = 'Attent';";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_assoc($result);
+                $sql1 = "SELECT count(*) as result from Reservation where status = 'Confirme';";
+                $result1 = mysqli_query($conn,$sql1);
+                $row1 = mysqli_fetch_assoc($result1);
+                $sql2 = "SELECT (count(*) - 1) as total from client;";
+                $result2 = mysqli_query($conn,$sql2);
+                $row2 = mysqli_fetch_assoc($result2);
+            ?>
             <div class="bg-gray-100 rounded-lg p-1 md:px-2 md:py-2 flex flex-col w-32  shadow-lg md:w-40">
-                <p class="text-red-500 font-semibold text-[40px]">20</p>
+                <p class="text-red-500 font-semibold text-[40px]"><?php echo $row['total']?></p>
                 <p class="text-black text-sm font-primary md:text-lg ">Demand en attent</p>
             </div>
             <div class="bg-gray-100 rounded-lg p-1 md:px-2 md:py-2 flex flex-col w-32 shadow-md  md:w-40">
-                <p class="text-yellow-500 font-semibold text-[40px]">20</p>
+                <p class="text-yellow-500 font-semibold text-[40px]"><?php echo  $row1['result']?></p>
                 <p class="text-black text-sm font-primary md:text-lg ">Demand approver</p>
             </div>
             <div class="bg-gray-100 rounded-lg p-1 w-32 md:px-2 md:py-2 flex flex-col  shadow-md  md:w-48">
@@ -56,7 +68,7 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
                 <p class="text-black text-sm font-primary md:text-lg ">Demand a demain </p>
             </div>
             <div class="bg-gray-50 rounded-lg p-1 md:px-2 md:py-2 flex flex-col w-32 shadow-md  md:w-40">
-                <p class="text-indigo-500 font-semibold text-[40px]">20</p>
+                <p class="text-indigo-500 font-semibold text-[40px]"><?php echo $row2['total'] ?></p>
                 <p class="text-black text-sm  font-primary md:text-lg ">Users</p>
             </div>
         </div>
