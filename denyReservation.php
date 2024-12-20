@@ -10,6 +10,8 @@ $query = mysqli_query($conn,$sql);
 
 if($query){
     header("Location: Dashboard.php");
+    session_start();
+    $_SESSION['anuller_success'] = "Reservation annuler successfully!";
     exit();
 }
 ?>

@@ -24,15 +24,16 @@
             </div>
 
             <!-- Form -->
-            <form action="./registerPros.php" method="POST" class="mt-8 space-y-6">
+            <form id="signupForm" action="./registerPros.php" method="POST" class="mt-8 space-y-6">
                 <div class="space-y-4">
                     <!-- Name -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Name
                         </label>
-                        <input type="text" name="name" required 
+                        <input type="text" id="name" name="name"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                            <small class="text-red-500 hidden" id="nameError">Invalid name (only letters allowed).</small>
                     </div>
 
                     <!-- First Name -->
@@ -40,45 +41,50 @@
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             First Name
                         </label>
-                        <input type="text" name="firstName" required 
+                        <input type="text" id="firstName" name="firstName"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="firstNameError">Invalid first name (only letters allowed).</small>
+                        </div>
 
                     <!-- Address -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Address
                         </label>
-                        <input type="text" name="address" required 
+                        <input type="text" id="adress" name="address"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="adreesError">Invalid adress (only letters allowed).</small>
+                        </div>
 
                     <!-- Phone -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Phone
                         </label>
-                        <input type="tel" name="tel" required 
+                        <input type="tel" id="tel" name="tel"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="phoneError">Invalid phone number (only number allowed).</small>
+                        </div>
 
                     <!-- Email -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Email
                         </label>
-                        <input type="email" name="email" required 
+                        <input type="email" id="email" name="email"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="emailError">Invalid email address.</small>
+                        </div>
 
                     <!-- Password -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Password
                         </label>
-                        <input type="password" name="password" required 
+                        <input type="password" id="password" name="password"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="passwordError">Password must be at least 6 characters long.</small>
+                        </div>
                 </div>
 
                 <div>
@@ -90,5 +96,85 @@
             </form>
         </div>
     </main>
+    <script>
+        const signupForm = document.getElementById("signupForm");
+        signupForm.onsubmit = function(){
+            let isValid = true;
+
+            const nameInput = document.getElementById("name");
+            const nameError = document.getElementById("nameError");
+            const nameRegex = /^[A-Za-z\s]+$/;
+            
+            if(!nameRegex.test(nameInput.value)){
+                isValid = false;
+                nameError.classList.remove("hidden");
+            }
+            else{
+                nameError.classList.add("hidden");
+            }
+
+            const firstName = document.getElementById("firstName");
+            const firstNameError = document.getElementById("firstNameError")
+
+            if(!nameRegex.test(firstName.value)){
+                isValid = false;
+                firstNameError.classList.remove("hidden")
+            }
+            else{
+                firstNameError.classList.add("hidden")
+            }
+
+            const adress = document.getElementById("adress");
+            const adreesError = document.getElementById("adreesError");
+            const addressRegex = /^[a-zA-Z0-9\s.,'-/#]+$/;
+
+            if(!addressRegex.test(adress.value)){
+                isValid = false;
+                adreesError.classList.remove("hidden")
+            }
+            else{
+                adreesError.classList.add("hidden")
+            }
+            const tel = document.getElementById("tel");
+            const phoneError = document.getElementById("phoneError")
+
+            const phoneRegex = /^\d{10}$/;
+            if(!phoneRegex.test(tel.value)){
+                isValid = false
+                phoneError.classList.remove("hidden")
+            }
+            else{
+                phoneError.classList.add("hidden")
+            }
+
+            const email = document.getElementById("email");
+            const emailError = document.getElementById("emailError")
+
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
+
+
+            if(!emailRegex.test(email.value)){
+                isValid = false;
+                emailError.classList.remove("hidden")
+            }
+            else{
+                emailError.classList.add("hidden");
+            }
+
+            const password = document.getElementById("password")
+            const passwordError = document.getElementById("passwordError")
+
+            if(password.value < 6){
+                isValid = false
+                passwordError.classList.remove("hidden");
+            }
+            else{
+                passwordError.classList.add("hidden")
+            }
+
+            return isValid
+
+        }
+    </script>
 </body>
 </html>

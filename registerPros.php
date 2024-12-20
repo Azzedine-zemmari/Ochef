@@ -1,13 +1,13 @@
 <?php
-
+session_start();
 require "./config.php";
 
-$name = $_POST['name'];
-$prenom = $_POST['firstName'];
-$address = $_POST['address'];
-$tel = $_POST['tel'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+$name = trim(htmlspecialchars($_POST['name']));
+$prenom = trim(htmlspecialchars($_POST['firstName']));
+$address = trim(htmlspecialchars($_POST['address']));
+$tel = trim(htmlspecialchars($_POST['tel']));
+$email = trim(htmlspecialchars($_POST['email']));
+$password = trim(htmlspecialchars($_POST['password']));
 // hash the password using  CRYPT_BLOWFISH:
 $hashed_Password = password_hash($password,PASSWORD_BCRYPT);
 $sql = "INSERT INTO client(nom,prenom,adress,tel,email,password) VALUES(?,?,?,?,?,?)";

@@ -29,7 +29,24 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
 </head>
 
 <body class="bg-[#F8F2F1]">
-
+<?php   if (isset($_SESSION['succe'])): 
+    ?>
+    <div id="successModal" class=" fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white rounded-lg w-1/3 p-6 relative">
+            <button 
+                id="closeSuccessModal" 
+                class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
+                &times;
+            </button>
+            <h3 class="text-xl font-primary mb-4 text-[#C0A677]">Success</h3>
+            <p class="text-gray-600 mb-6">
+                <?php echo $_SESSION['succe']; ?>
+            </p>
+            <button id="confirmSuccess" class="bg-[#C0A677] px-4 py-2 rounded-md text-white">OK</button>
+        </div>
+    </div>
+    <?php
+    unset($_SESSION['succe']); endif; ?>
     <!-- Hero Section -->
     <section class="relative bg-[url('./image/hero.png')] bg-cover bg-no-repeat my-3 mx-7 h-96">
         <header>
@@ -38,9 +55,9 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
                 <div class="hidden md:flex items-center space-x-10 mx-auto">
                     <a href="./Home.php" class="text-white">Home</a>
                     <a href="./Menu.php" class="text-white">Menu</a>
-                    <a href="#" class="text-white">Reservation</a>
+                    <a href="./Reservation.php" class="text-white">Reservation</a>
                     <a href="#" class="text-white">Contact</a>
-                    <a class="text-white border border-white text-sm py-2 px-6 rounded-full">Reserver</a>
+                    <a href="./logout.php" class="text-white border border-white text-sm ho py-2 px-6 rounded-full ">logout</a>
                 </div>
             </nav>
         </header>
@@ -60,7 +77,7 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
                 <?php
                 require "./config.php";
 
-                $sql = "SELECT menu.nom as MenuName, Plat.nom as PlatName, Plat.ingrediant 
+                $sql = "SELECT menu.nom as MenuName, Plat.nom as PlatName, Plat.ingrediant , Plat.image
                     FROM Plat 
                     JOIN menu ON menu.id = Plat.menuId 
                     ORDER BY menu.nom";
@@ -76,7 +93,7 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
 
                     echo "
                 <div class='flex gap-4 items-center py-3 border-b border-gray-200'>
-                    <img src='./image/img1.png' class='w-20 h-20 object-cover rounded-lg' alt='Dish'>
+                    <img src='{$row['image']}' class='w-20 h-20 object-cover rounded-lg' alt='Dish'>
                     <div>
                         <h4 class='font-primary text-lg text-[#333]'>{$row['PlatName']}</h4>
                         <p class='text-sm text-gray-600'>{$row['ingrediant']}</p>
@@ -104,7 +121,7 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
         <p class="text-gray-600 mb-6">
             Thank you for choosing us. Please provide your details below to complete your reservation.
         </p>
-        <form action="" method="POST">
+        <form   action="" method="POST">
             <div class="flex gap-5">
                 <div class="flex flex-col">    
                 <label for="nbr" class="text-[#C0A677] font-primary font-semibold">N Person:</label>
@@ -151,7 +168,14 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
         $stmt = mysqli_prepare($conn,$SQL);
         mysqli_stmt_bind_param($stmt,"iissi",$client,$menu,$dateReservation,$time,$nbrPerson);
         if(mysqli_stmt_execute($stmt)){
-            echo "reservation added success?";
+            $_SESSION['succe'] = "Rservation created successfuly !";
+            ?>
+            <script> window.location.href = 'Menu.php'</script>
+            <?php
+        }
+        else{
+            $_SESSION['message'] = "an error occured will creation Reservation !";
+
         }
     } 
     ?>
@@ -194,6 +218,27 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
                 pop_up.classList.toggle("hidden");
             }
         })
+
+    const successModal = document.getElementById("successModal");
+    const closeSuccessModal = document.getElementById("closeSuccessModal");
+    const confirmSuccess = document.getElementById("confirmSuccess");
+
+    if (successModal) {
+        closeSuccessModal.addEventListener("click", () => {
+            successModal.style.display = "none";
+        });
+
+        confirmSuccess.addEventListener("click", () => {
+            successModal.style.display = "none";
+        });
+
+        // Optional: Close modal on clicking outside it
+        window.addEventListener("click", (e) => {
+            if (e.target === successModal) {
+                successModal.style.display = "none";
+            }
+        });
+    }
     </script>
 </body>
 

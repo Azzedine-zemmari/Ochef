@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Check if there's a login error
+$login_error = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : null;
+
+// Clear the session error message after displaying it
+if ($login_error) {
+    unset($_SESSION['login_error']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +17,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: #888  ;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 2px 5px #7f7f7f ;
+            border: transparent;
+            border-radius: 10px;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: #3949AB;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #283593;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <main class="min-h-screen flex items-center justify-center py-12 px-4">
@@ -24,25 +96,28 @@
             </div>
 
             <!-- Form -->
-            <form action="./loginPros.php" method="POST" class="mt-8 space-y-6">
+            <form action="./loginPros.php" id="loginForm" method="POST" class="mt-8 space-y-6">
                 <div class="space-y-4">
                     <!-- Email -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Email
                         </label>
-                        <input type="email" name="email" required 
+                        <input type="text" id="email" name="email"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="emailError"></small>
+                        </div>
 
                     <!-- Password -->
                     <div>
                         <label class="flex items-center text-sm font-medium text-gray-700 mb-1">
                             Password
                         </label>
-                        <input type="password" name="password" required 
+                        <input type="password" id="password" name="password"  
                             class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-                    </div>
+                            <small class="text-red-500 hidden" id="passwordError"></small>
+
+                        </div>
                 </div>
 
                 <div>
@@ -53,6 +128,65 @@
                 </div>
             </form>
         </div>
+        <?php if ($login_error): ?>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Error</h2>
+        <p><?php echo $login_error; ?></p>
+        <button class="btn" onclick="closeModal()">OK</button>
+    </div>
+</div>
+<?php endif; ?>
     </main>
+    <script>
+        const loginForm = document.getElementById("loginForm")
+        loginForm.onsubmit = function(){
+            let isValid = true;
+            const email = document.getElementById("email")
+            const password = document.getElementById("password")
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+
+            if(email.value.trim() === ""){
+                isValid = false;
+                const emailError = document.getElementById("emailError");
+                emailError.textContent = "email is required"
+                emailError.classList.remove("hidden")
+            }
+            else if(!emailRegex.test(email.value.trim())){
+                emailError.textContent = "Invalid email format."
+                emailError.classList.remove("hidden")
+            }
+            else{
+                emailError.classList.add("hidden")
+            }
+            if(password.value.trim() === ""){
+                isValid = false
+                const passwordError = document.getElementById("passwordError")
+                passwordError.textContent = "password is required"
+                passwordError.classList.remove("hidden")
+            }
+            else{
+                passwordError.classList.add("hidden")
+            }
+            return isValid;
+        }
+            
+    const modal = document.getElementById("myModal");
+    const span = document.getElementsByClassName("close")[0];
+
+    // Open the modal if there's a login error
+    <?php if ($login_error): ?>
+        modal.style.display = "block";
+    <?php endif; ?>
+
+    // Close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    </script>
 </body>
 </html>

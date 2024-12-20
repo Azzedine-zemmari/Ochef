@@ -35,13 +35,14 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
             <nav class="flex justify-between items-center px-3 pt-2">
                 <img src="./image/logo.png" class="w-auto h-10" alt="">
                 <div class="hidden md:flex items-center space-x-10 mx-auto">
-                    <a href="#" class="text-white">Home</a>
+                    <a href="./Home.php" class="text-white">Home</a>
                     <a href="./Menu.php" class="text-white">Menu</a>
-                    <a href="#" class="text-white">Reservation</a>
+                    <a href="./Reservation.php" class="text-white">Reservation</a>
                     <a href="#" class="text-white">Contact</a>
-                    <a class="text-white border border-white text-sm ho py-2 px-6 rounded-full ">Rerserver</a>
+                    <a href="./logout.php" class="text-white border border-white text-sm ho py-2 px-6 rounded-full ">logout</a>
                 </div>
             </nav>
+            <img id="menu" src="./image/icons8-menu-50.png" id="MenuBg" class="w-7 h-7 absolute right-4 top-4 md:hidden" alt="">
             <!-- nav 2 needed -->
         </header>
         <hr class="text-white w-[80%] mx-auto mt-5">
@@ -116,7 +117,6 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
     <hr class="text-white">
     <p class="text-center text-white font-semibold py-2">© 2024 Luxury chef. All rights reserved</p>
     </footer>
-
 </body>
 
 </html>
